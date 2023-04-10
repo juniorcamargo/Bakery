@@ -1,24 +1,22 @@
-import { Dish } from '../Dish';
+import { BaseDishesFactory } from './BaseDishesFactory';
+import { ErrorDishe } from '../ErrorDishe';
+import { Coffee } from '../morning/dishes/Coffee';
+import { Eggs } from '../morning/dishes/Eggs';
+import { Toast } from '../morning/dishes/Toast';
 
 import { IDish } from '@/interfaces/bakery/IDish';
 
-export class MorningDishesFactory {
-  public static create(key: string): IDish {
+export class MorningDishesFactory extends BaseDishesFactory {
+  public create(key: string): IDish {
     switch (key) {
       case '1':
-        return new Dish({ type: 'entrée', name: 'eggs', have_seconds_accepted: false });
-        break;
+        return new Eggs();
       case '2':
-        return new Dish({ type: 'side', name: 'toast', have_seconds_accepted: false });
-        break;
+        return new Toast();
       case '3':
-        return new Dish({ type: 'drink', name: 'coffee', have_seconds_accepted: true });
-        break;
-      // case '4':
-      //   return new Dish({ type: 'dessert', name: 'cake', have_seconds_accepted: false });
+        return new Coffee();
       default:
-        return new Dish({ type: 'error', name: 'error', have_seconds_accepted: false });
-        break;
+        return new ErrorDishe();
     }
   }
 }
