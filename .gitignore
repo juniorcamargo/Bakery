@@ -4,3 +4,5 @@ dist
 *.log
 .env
 coverage
+package-lock.json
+yarn.lock
