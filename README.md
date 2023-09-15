@@ -24,8 +24,11 @@ npm test
 
 ## How to use
 
+Rename .env.example to .env
+Setup the environment variables as your needs
 Run the start command run the server
 
 ```console
+mv .env.example .env
 npm start
 ```
