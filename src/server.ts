@@ -1,5 +1,9 @@
+import './config';
 import app from './app';
 
-app.listen(3033, () => {
-  console.log('*** Server started on port 3033 ***');
+const port = process.env.PORT || 3033;
+const baseUrl = process.env.BASE_URL || 'http://localhost';
+
+app.listen(port, () => {
+  console.log(`*** Server started on  ${baseUrl}:${port} ***`);
 });
