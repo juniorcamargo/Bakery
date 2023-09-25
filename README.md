@@ -32,3 +32,7 @@ Run the start command run the server
 mv .env.example .env
 npm start
 ```
+
+### Recommendations
+
+For better visualizations while in VsCode, install de recommended extensions described in `.vscode/extensions.json`
