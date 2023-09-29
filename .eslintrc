@@ -1,3 +1,14 @@
 {
-    "extends": ["@eduzz/eslint-config-houston/node"]
+    "extends": ["@eduzz/eslint-config-houston/node"],
+    "rules": {
+      "@typescript-eslint/ban-types": [
+        "error",
+        {
+          "types": {
+            "Function": false
+          },
+          "extendDefaults": true
+        }
+      ]
+    }
 }

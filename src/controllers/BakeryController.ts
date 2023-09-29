@@ -1,20 +1,14 @@
-import { Request, Response } from 'express';
-
-import BakeryService from '../services/BakeryService';
-
+import Http from '@/infra/http/Http';
 import { IBakeryService } from '@/interfaces/bakery/IBakeryService';
 
-class BakeryController {
-  constructor(private readonly service: IBakeryService) {}
+export default class BakeryController {
+  constructor(private readonly http: Http, private readonly service: IBakeryService, private prefix = '') {
+    this.init();
+  }
 
-  public async create(req: Request, res: Response): Promise<Response> {
-    try {
-      const data = await this.service.create(req.body.order);
-      return res.status(200).json(data);
-    } catch (error) {
-      return res.status(400).json('invalid payload');
-    }
+  private init() {
+    this.http.on('post', `${this.prefix}/order`, async (params: any, body: any) => {
+      return await this.service.create(body.order);
+    });
   }
 }
-
-export default new BakeryController(BakeryService);
