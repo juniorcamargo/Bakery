@@ -7,4 +7,12 @@ describe('API tests', () => {
     expect(response.status).toBe(HttpStatusCode.Ok);
     expect(response.data).toContain('Welcome');
   });
+
+  test('Should create an order via api', async () => {
+    const input = {
+      order: 'morning,1,2,3'
+    };
+    const response = await axios.post('http://localhost:3033/bakery/order', input);
+    expect(response.data).toBe('eggs, toast, coffee');
+  });
 });
