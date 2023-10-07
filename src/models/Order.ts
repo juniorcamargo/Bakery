@@ -1,3 +1,4 @@
+import { ErrorDishe } from './ErrorDishe';
 import { OrderDish } from './OrderDish';
 
 import { IDish } from '@/interfaces/bakery/IDish';
@@ -9,6 +10,15 @@ export class Order {
   constructor(public readonly id: string) {}
 
   public addDish(dish: IDish) {
+    if (this.error) {
+      return;
+    }
+
+    if (dish instanceof ErrorDishe) {
+      this.error = true;
+      return;
+    }
+
     const dishIndex = this.dishes.findIndex((orderDish: OrderDish) => orderDish.dish.type === dish.type);
     if (dishIndex !== -1) {
       this.dishes[dishIndex].increment();
