@@ -2,7 +2,7 @@ import { ErrorDishe } from './ErrorDishe';
 import { OrderDish } from './OrderDish';
 
 import { IDish } from '@/interfaces/bakery/IDish';
-import { NonRepeatableDish } from '@/interfaces/bakery/NonRepeatableDish';
+import { NonRepeatableDish } from '@/models/NonRepeatableDish';
 
 export class Order {
   private dishes: OrderDish[] = [];
