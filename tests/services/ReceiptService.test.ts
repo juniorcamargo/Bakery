@@ -16,4 +16,15 @@ describe('Receipt tests', () => {
 
     expect(ReceiptService.print(order)).toBe('eggs, toast, coffee(x2)');
   });
+
+  test('should print order receipt with error', () => {
+    const order = new Order('1');
+    order.addDish(new Eggs());
+    order.addDish(new Toast());
+    order.addDish(new Toast());
+    order.addDish(new Coffee());
+    order.addDish(new Coffee());
+
+    expect(ReceiptService.print(order)).toBe('eggs, toast, error');
+  });
 });
