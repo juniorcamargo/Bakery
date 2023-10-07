@@ -6,4 +6,8 @@ export class OrderDish {
   public increment() {
     this.amount += 1;
   }
+
+  public getAmount(): number {
+    return this.amount;
+  }
 }

@@ -4,6 +4,7 @@ import { Coffee } from '@/models/morning/dishes/Coffee';
 import { Eggs } from '@/models/morning/dishes/Eggs';
 import { Toast } from '@/models/morning/dishes/Toast';
 import { Order } from '@/models/Order';
+import { ReceiptService } from '@/services/ReceiptService';
 
 describe('Receipt tests', () => {
   test('should print order receipt', () => {
