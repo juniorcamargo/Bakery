@@ -11,31 +11,41 @@ export class Order {
   constructor(public readonly id: string) {}
 
   public addDish(dish: IDish) {
-    if (this.error) {
+    this.validateDish(dish);
+
+    if (this.hasError()) {
       return;
     }
 
-    if (dish instanceof ErrorDishe) {
-      this.error = true;
-      return;
-    }
-
-    const dishIndex = this.dishes.findIndex((orderDish: OrderDish) => orderDish.dish.type === dish.type);
-    if (dishIndex !== -1) {
-      if (dish instanceof NonRepeatableDish) {
-        this.error = true;
-        return;
+    const orderDish = this.dishes.find(orderDish => orderDish.dish.type === dish.type);
+    if (!orderDish) {
+      this.dishes.push(new OrderDish(dish, 1));
+    } else {
+      if (this.validateSecondsAccepted(orderDish.dish)) {
+        orderDish.increment();
       }
-      this.dishes[dishIndex].increment();
-      return;
     }
-    this.dishes.push(new OrderDish(dish, 1));
   }
 
   public getMeal() {
-    return {
-      error: this.error,
-      dishes: this.dishes
-    };
+    return this.dishes;
+  }
+
+  public hasError() {
+    return this.error;
+  }
+
+  private validateDish(dish: IDish) {
+    if (dish instanceof ErrorDishe) {
+      this.error = true;
+    }
+  }
+
+  private validateSecondsAccepted(dish: IDish): boolean {
+    if (dish instanceof NonRepeatableDish) {
+      this.error = true;
+      return false;
+    }
+    return true;
   }
 }

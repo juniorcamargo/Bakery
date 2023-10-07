@@ -15,13 +15,11 @@ describe('Order tests', () => {
     order.addDish(new Coffee());
     order.addDish(new Coffee());
 
-    const expected = {
-      error: false,
-      dishes: [new OrderDish(new Eggs(), 1), new OrderDish(new Toast(), 1), new OrderDish(new Coffee(), 2)]
-    };
+    const expected = [new OrderDish(new Eggs(), 1), new OrderDish(new Toast(), 1), new OrderDish(new Coffee(), 2)];
 
-    expect(order.getMeal().dishes).toHaveLength(3);
+    expect(order.getMeal()).toHaveLength(3);
     expect(order.getMeal()).toStrictEqual(expected);
+    expect(order.hasError()).toBeFalsy;
   });
 
   test('should create an order with error on invalid dish', () => {
@@ -31,13 +29,11 @@ describe('Order tests', () => {
     order.addDish(new Coffee());
     order.addDish(new Coffee());
 
-    const expected = {
-      error: true,
-      dishes: [new OrderDish(new Eggs(), 1)]
-    };
+    const expected = [new OrderDish(new Eggs(), 1)];
 
-    expect(order.getMeal().dishes).toHaveLength(1);
+    expect(order.getMeal()).toHaveLength(1);
     expect(order.getMeal()).toStrictEqual(expected);
+    expect(order.hasError()).toBeTruthy();
   });
 
   test('should create an order with error on non repeatable dish with seconds', () => {
@@ -47,12 +43,10 @@ describe('Order tests', () => {
     order.addDish(new Toast());
     order.addDish(new Coffee());
 
-    const expected = {
-      error: true,
-      dishes: [new OrderDish(new Eggs(), 1), new OrderDish(new Toast(), 1)]
-    };
+    const expected = [new OrderDish(new Eggs(), 1), new OrderDish(new Toast(), 1)];
 
-    expect(order.getMeal().dishes).toHaveLength(2);
+    expect(order.getMeal()).toHaveLength(2);
     expect(order.getMeal()).toStrictEqual(expected);
+    expect(order.hasError()).toBeTruthy();
   });
 });
