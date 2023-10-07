@@ -1,9 +1,9 @@
 import { IDish } from '@/interfaces/bakery/IDish';
+import { NonRepeatableDish } from '@/interfaces/bakery/NonRepeatableDish';
 
-export class Toast implements IDish {
+export class Toast extends NonRepeatableDish implements IDish {
   public type = 'side';
   public name = 'toast';
-  public have_seconds_accepted = false;
   public have_seconds_times = 1;
 
   public print(): string {
