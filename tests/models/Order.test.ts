@@ -3,6 +3,8 @@ import { describe, expect, test } from 'vitest';
 import { Coffee } from '@/models/morning/dishes/Coffee';
 import { Eggs } from '@/models/morning/dishes/Eggs';
 import { Toast } from '@/models/morning/dishes/Toast';
+import { Order } from '@/models/Order';
+import { OrderDish } from '@/models/OrderDish';
 
 describe('Order tests', () => {
   test('should create an order', () => {
@@ -12,13 +14,12 @@ describe('Order tests', () => {
     order.addDish(new Coffee());
     order.addDish(new Coffee());
 
-    const expected = [
-      { type: 'drink', name: 'coffee', amount: 2 },
-      { type: 'entrée', name: 'eggs', amount: 1 },
-      { type: 'side', name: 'toast', amount: 1 }
-    ];
+    const expected = {
+      error: false,
+      dishes: [new OrderDish(new Eggs(), 1), new OrderDish(new Toast(), 1), new OrderDish(new Coffee(), 2)]
+    };
 
-    expect(order.getMeal()).toHaveLength(3);
-    expect(order.getMeal()).toEqual(expected);
+    expect(order.getMeal().dishes).toHaveLength(3);
+    expect(order.getMeal()).toStrictEqual(expected);
   });
 });
