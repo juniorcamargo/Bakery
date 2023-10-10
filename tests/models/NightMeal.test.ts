@@ -9,19 +9,54 @@ describe('Bakery tests night', () => {
     meal = new Meal('night', new NightDishesFactory());
   });
   test('Should create an order with error', async () => {
+    const expected = {
+      dishes: [
+        { name: 'steak', amount: 1 },
+        { name: 'potato', amount: 1 },
+        { name: 'wine', amount: 1 },
+        { name: 'cake', amount: 1 }
+      ],
+      error: false
+    };
     const createOrder = meal.createOrder(['1', '2', '3', '4']);
-    expect(createOrder).toBe('steak, potato, wine, cake');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create a order with have seconds', async () => {
+    const expected = {
+      dishes: [
+        { name: 'steak', amount: 1 },
+        { name: 'potato', amount: 2 },
+        { name: 'wine', amount: 1 },
+        { name: 'cake', amount: 1 }
+      ],
+      error: false
+    };
     const createOrder = meal.createOrder(['1', '2', '2', '3', '4']);
-    expect(createOrder).toBe('steak, potato(x2), wine, cake');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create an order with options unordered', async () => {
+    const expected = {
+      dishes: [
+        { name: 'steak', amount: 1 },
+        { name: 'potato', amount: 1 },
+        { name: 'wine', amount: 1 }
+      ],
+      error: false
+    };
     const createOrder = meal.createOrder(['2', '1', '3']);
-    expect(createOrder).toBe('steak, potato, wine');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create an order with error', async () => {
+    const expected = {
+      dishes: [
+        { name: 'steak', amount: 1 },
+        { name: 'potato', amount: 1 },
+        { name: 'wine', amount: 1 },
+        { name: 'cake', amount: 1 }
+      ],
+      error: true
+    };
     const createOrder = meal.createOrder(['1', '2', '3', '4', '5']);
-    expect(createOrder).toBe('steak, potato, wine, cake, error');
+    expect(createOrder).toEqual(expected);
   });
 });
