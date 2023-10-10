@@ -1,7 +1,6 @@
 import { Order } from './Order';
 
 import { IDishesFactory } from '@/interfaces/bakery/IDishesFactory';
-import { ReceiptService } from '@/services/ReceiptService';
 
 export class Meal {
   public order: Order;
@@ -14,16 +13,33 @@ export class Meal {
     return;
   }
 
-  public createOrder(options: string[]): string {
+  public createOrder(options: string[]): MealOutput {
     options.sort();
     try {
       for (const option of options) {
         const dish = this.factory.create(option);
         this.order.addDish(dish);
       }
-      return ReceiptService.print(this.order);
+      return {
+        dishes: this.order.getMeal().map(orderDish => ({
+          name: orderDish.dish.name,
+          amount: orderDish.getAmount()
+        })),
+        error: false
+      };
     } catch (error) {
-      return ReceiptService.print(this.order, true);
+      return {
+        dishes: this.order.getMeal().map(orderDish => ({
+          name: orderDish.dish.name,
+          amount: orderDish.getAmount()
+        })),
+        error: true
+      };
     }
   }
 }
+
+export type MealOutput = {
+  dishes: { name: string; amount: number }[];
+  error: boolean;
+};
