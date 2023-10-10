@@ -10,8 +10,8 @@ export class Meal {
     this.order = new Order('1');
   }
 
-  public printOrder(hasError = false): string {
-    return ReceiptService.print(this.order, hasError);
+  public printOrder(): string {
+    return;
   }
 
   public createOrder(options: string[]): string {
@@ -21,9 +21,9 @@ export class Meal {
         const dish = this.factory.create(option);
         this.order.addDish(dish);
       }
-      return this.printOrder(false);
+      return ReceiptService.print(this.order);
     } catch (error) {
-      return this.printOrder(true);
+      return ReceiptService.print(this.order, true);
     }
   }
 }
