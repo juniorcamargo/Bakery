@@ -1,17 +1,16 @@
-import { Order } from '@/models/Order';
-
 export class ReceiptService {
-  public static print(order: Order, hasError = false) {
-    const dishes = order.getMeal();
+  public static print(input: MealReceiptInput) {
+    const receiptItems = input.dishes.map(dish => `${dish.name}${dish.amount > 1 ? `(x${dish.amount})` : ''}`);
 
-    const receiptItems = dishes.map(
-      orderDish => `${orderDish.dish.name}${orderDish.getAmount() > 1 ? `(x${orderDish.getAmount()})` : ''}`
-    );
-
-    if (hasError) {
+    if (input.error) {
       receiptItems.push('error');
     }
 
     return receiptItems.join(', ');
   }
 }
+
+export type MealReceiptInput = {
+  dishes: { name: string; amount: number }[];
+  error: boolean;
+};
