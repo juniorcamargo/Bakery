@@ -8,7 +8,7 @@ import { OrderDish } from '@/models/OrderDish';
 
 describe('Order tests', () => {
   test('should create an order', () => {
-    const order = new Order('1');
+    const order = new Order('1', new Notification());
     order.addDish(new Eggs());
     order.addDish(new Toast());
     order.addDish(new Coffee());
@@ -22,7 +22,7 @@ describe('Order tests', () => {
   });
 
   test('should create an order with error on non repeatable dish with seconds', () => {
-    const order = new Order('1');
+    const order = new Order('1', new Notification());
 
     expect(() => {
       order.addDish(new Eggs());
