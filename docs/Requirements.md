@@ -17,7 +17,7 @@
 1. There is no dessert for morning meals
 1. Input is not case sensitive
 1. If invalid selection is encountered, display valid selecions up to the error, then print error
-1. In the morning, you cvan order multiple cups of coffee
+1. In the morning, you can order multiple cups of coffee
 1. At night, you can have multiple orders of potatoes
 1. Except for the above rules, you can only order 1 of each dish type
 1. The list of items that can be ordered multiple times can change over time

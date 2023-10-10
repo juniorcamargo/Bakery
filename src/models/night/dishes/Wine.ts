@@ -1,12 +1,7 @@
 import { IDish } from '@/interfaces/bakery/IDish';
+import { NonRepeatableDish } from '@/models/NonRepeatableDish';
 
-export class Wine implements IDish {
+export class Wine extends NonRepeatableDish implements IDish {
   public type = 'drink';
   public name = 'wine';
-  public have_seconds_accepted = false;
-  public have_seconds_times = 1;
-
-  public print(): string {
-    return this.have_seconds_times > 1 ? `${this.name}(${this.have_seconds_times}x)` : `${this.name}`;
-  }
 }

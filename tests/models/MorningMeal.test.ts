@@ -1,43 +1,71 @@
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
-import { MorningMeal } from '../../src/models/MorningMeal';
+import { MorningDishesFactory } from '@/models/factories/MorningDishesFactory';
+import { Meal } from '@/models/Meal';
 
+let meal: Meal;
 describe('Bakery tests morning', () => {
+  beforeEach(() => {
+    meal = new Meal('morning', new MorningDishesFactory());
+  });
+
   test('Should create a order', async () => {
-    const meal = new MorningMeal();
+    const expected = {
+      dishes: [
+        { name: 'eggs', amount: 1 },
+        { name: 'toast', amount: 1 },
+        { name: 'coffee', amount: 1 }
+      ],
+      error: false
+    };
     const createOrder = meal.createOrder(['1', '2', '3']);
-    expect(createOrder).toBe('eggs, toast, coffee');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create a order with have seconds', async () => {
-    const meal = new MorningMeal();
+    const expected = {
+      dishes: [
+        { name: 'eggs', amount: 1 },
+        { name: 'toast', amount: 1 },
+        { name: 'coffee', amount: 2 }
+      ],
+      error: false
+    };
     const createOrder = meal.createOrder(['1', '2', '3', '3']);
-    expect(createOrder).toBe('eggs, toast, coffee(2x)');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create an order with options unordered', async () => {
-    const meal = new MorningMeal();
+    const expected = {
+      dishes: [
+        { name: 'eggs', amount: 1 },
+        { name: 'toast', amount: 1 },
+        { name: 'coffee', amount: 1 }
+      ],
+      error: false
+    };
     const createOrder = meal.createOrder(['2', '1', '3']);
-    expect(createOrder).toBe('eggs, toast, coffee');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create an order with error', async () => {
-    const meal = new MorningMeal();
+    const expected = {
+      dishes: [
+        { name: 'eggs', amount: 1 },
+        { name: 'toast', amount: 1 },
+        { name: 'coffee', amount: 1 }
+      ],
+      error: true
+    };
     const createOrder = meal.createOrder(['1', '2', '3', '4']);
-    expect(createOrder).toBe('eggs, toast, coffee, error');
+    expect(createOrder).toEqual(expected);
   });
   test('Should create an order with error of have seconds', async () => {
-    const meal = new MorningMeal();
+    const expected = {
+      dishes: [
+        { name: 'eggs', amount: 1 },
+        { name: 'toast', amount: 1 }
+      ],
+      error: true
+    };
     const createOrder = meal.createOrder(['1', '2', '2', '3']);
-    expect(createOrder).toBe('eggs, toast, error');
-  });
-
-  test('Should marcelo', async () => {
-    const meal = new MorningMeal();
-    const createOrder = meal.createOrder(['3', '3', '1', '2']);
-    expect(createOrder).toBe('eggs, toast, coffee(2x)');
-  });
-
-  test('Should marcelo 2', async () => {
-    const meal = new MorningMeal();
-    const createOrder = meal.createOrder(['3', '5', '3', '1']);
-    expect(createOrder).toBe('eggs, coffee(2x), error');
+    expect(createOrder).toEqual(expected);
   });
 });

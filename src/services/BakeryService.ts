@@ -1,3 +1,5 @@
+import { ReceiptService } from './ReceiptService';
+
 import { IBakeryService } from '@/interfaces/bakery/IBakeryService';
 import { MealFactory } from '@/models/factories/MealFactory';
 
@@ -8,7 +10,7 @@ export class BakeryService implements IBakeryService {
     });
     const mealType = data.splice(0, 1)[0];
     const meal = MealFactory.create(mealType);
-    return meal.createOrder(data);
+    return ReceiptService.print(meal.createOrder(data));
   }
 }
 

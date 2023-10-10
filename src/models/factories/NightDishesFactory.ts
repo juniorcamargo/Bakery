@@ -1,13 +1,12 @@
-import { BaseDishesFactory } from './BaseDishesFactory';
-import { ErrorDishe } from '../ErrorDishe';
 import { Cake } from '../night/dishes/Cake';
 import { Potato } from '../night/dishes/Potato';
 import { Steak } from '../night/dishes/Steak';
 import { Wine } from '../night/dishes/Wine';
 
 import { IDish } from '@/interfaces/bakery/IDish';
+import { IDishesFactory } from '@/interfaces/bakery/IDishesFactory';
 
-export class NightDishesFactory extends BaseDishesFactory {
+export class NightDishesFactory implements IDishesFactory {
   public create(key: string): IDish {
     switch (key) {
       case '1':
@@ -19,7 +18,7 @@ export class NightDishesFactory extends BaseDishesFactory {
       case '4':
         return new Cake();
       default:
-        return new ErrorDishe();
+        throw new Error('invalid dish');
     }
   }
 }
