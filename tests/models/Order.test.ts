@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
+import NotificationError from '@/errors/NotificationError';
 import { Coffee } from '@/models/morning/dishes/Coffee';
 import { Eggs } from '@/models/morning/dishes/Eggs';
 import { Toast } from '@/models/morning/dishes/Toast';
@@ -8,7 +9,7 @@ import { OrderDish } from '@/models/OrderDish';
 
 describe('Order tests', () => {
   test('should create an order', () => {
-    const order = new Order('1', new Notification());
+    const order = new Order('1');
     order.addDish(new Eggs());
     order.addDish(new Toast());
     order.addDish(new Coffee());
@@ -18,17 +19,17 @@ describe('Order tests', () => {
 
     expect(order.getMeal()).toHaveLength(3);
     expect(order.getMeal()).toStrictEqual(expected);
-    expect(order.hasError()).toBeFalsy;
+    expect(order.notification.hasErrors()).toBeFalsy;
   });
 
   test('should create an order with error on non repeatable dish with seconds', () => {
-    const order = new Order('1', new Notification());
+    const order = new Order('1');
 
     expect(() => {
       order.addDish(new Eggs());
       order.addDish(new Toast());
       order.addDish(new Toast());
       order.addDish(new Coffee());
-    }).toThrow('cannot have seconds');
+    }).toThrow(new NotificationError([{ context: 'toast', message: 'cannot have seconds' }]));
   });
 });
