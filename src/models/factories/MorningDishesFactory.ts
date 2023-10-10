@@ -1,4 +1,3 @@
-import { ErrorDishe } from '../ErrorDishe';
 import { Coffee } from '../morning/dishes/Coffee';
 import { Eggs } from '../morning/dishes/Eggs';
 import { Toast } from '../morning/dishes/Toast';
@@ -16,7 +15,7 @@ export class MorningDishesFactory implements IDishesFactory {
       case '3':
         return new Coffee();
       default:
-        return new ErrorDishe();
+        throw new Error('invalid dish');
     }
   }
 }

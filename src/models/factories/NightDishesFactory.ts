@@ -1,4 +1,3 @@
-import { ErrorDishe } from '../ErrorDishe';
 import { Cake } from '../night/dishes/Cake';
 import { Potato } from '../night/dishes/Potato';
 import { Steak } from '../night/dishes/Steak';
@@ -19,7 +18,7 @@ export class NightDishesFactory implements IDishesFactory {
       case '4':
         return new Cake();
       default:
-        return new ErrorDishe();
+        throw new Error('invalid dish');
     }
   }
 }

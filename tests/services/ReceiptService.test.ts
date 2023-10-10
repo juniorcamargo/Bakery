@@ -21,10 +21,7 @@ describe('Receipt tests', () => {
     const order = new Order('1');
     order.addDish(new Eggs());
     order.addDish(new Toast());
-    order.addDish(new Toast());
-    order.addDish(new Coffee());
-    order.addDish(new Coffee());
 
-    expect(ReceiptService.print(order)).toBe('eggs, toast, error');
+    expect(ReceiptService.print(order, true)).toBe('eggs, toast, error');
   });
 });

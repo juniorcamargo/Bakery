@@ -10,16 +10,20 @@ export class Meal {
     this.order = new Order('1');
   }
 
-  public printOrder(): string {
-    return ReceiptService.print(this.order);
+  public printOrder(hasError = false): string {
+    return ReceiptService.print(this.order, hasError);
   }
 
   public createOrder(options: string[]): string {
     options.sort();
-    options.forEach(option => {
-      const dish = this.factory.create(option);
-      this.order.addDish(dish);
-    });
-    return this.printOrder();
+    try {
+      for (const option of options) {
+        const dish = this.factory.create(option);
+        this.order.addDish(dish);
+      }
+      return this.printOrder(false);
+    } catch (error) {
+      return this.printOrder(true);
+    }
   }
 }
